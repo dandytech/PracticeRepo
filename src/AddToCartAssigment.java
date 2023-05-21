@@ -5,18 +5,32 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class AddToCartAssigment {
 
 	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
 		
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\user\\Desktop\\QA-Testing\\chromedriver_win32\\chromedriver.exe");
+		//System.setProperty("webdriver.chrome.driver", "C:\\Users\\user\\Desktop\\QA-Testing\\chromedriver_win32\\chromedriver.exe");
 
-		WebDriver driver = new ChromeDriver();
+		//WebDriver driver = new ChromeDriver();
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--remote-allow-origins=*");
+		options.addArguments("--disable notifications");
+		DesiredCapabilities cp = new DesiredCapabilities();
+		cp.setCapability(ChromeOptions.CAPABILITY, options);
+		options.merge(cp);
+		ChromeDriver driver = new ChromeDriver(options);
+	
 		
 		driver.manage().window().maximize();
 		
@@ -37,9 +51,9 @@ public class AddToCartAssigment {
 
 		driver.findElement(By.id("okayBtn")).click();
 		
-		WebElement options = driver.findElement(By.xpath("//select[@class='form-control']"));
+		WebElement options2 = driver.findElement(By.xpath("//select[@class='form-control']"));
 		 
-		Select option = new Select(options);
+		Select option = new Select(options2);
 		
 		option.selectByIndex(2);
 		

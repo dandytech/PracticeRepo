@@ -5,16 +5,30 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class AddToCart {
 
 	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
 
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\user\\Desktop\\QA-Testing\\chromedriver_win32\\chromedriver.exe");
+		//System.setProperty("webdriver.chrome.driver", "C:\\Users\\user\\Desktop\\QA-Testing\\chromedriver_win32\\chromedriver.exe");
 
-		WebDriver driver = new ChromeDriver();
+		//WebDriver driver = new ChromeDriver();
 
+		WebDriverManager.chromedriver().setup();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--remote-allow-origins=*");
+		options.addArguments("--disable notifications");
+		DesiredCapabilities cp = new DesiredCapabilities();
+		cp.setCapability(ChromeOptions.CAPABILITY, options);
+		options.merge(cp);
+		ChromeDriver driver = new ChromeDriver(options);
+	
+		
 		String[] itemsNeeded = { "Cucumber", "Brocolli", "Beetroot" };
 
 		driver.get("https://rahulshettyacademy.com/seleniumPractise/");

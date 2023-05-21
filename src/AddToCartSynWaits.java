@@ -5,8 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class AddToCartSynWaits {
 
@@ -14,13 +18,23 @@ public class AddToCartSynWaits {
 
 		// TODO Auto-generated method stub
 
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\user\\Desktop\\QA-Testing\\chromedriver_win32\\chromedriver.exe");
+		//System.setProperty("webdriver.chrome.driver", "C:\\Users\\user\\Desktop\\QA-Testing\\chromedriver_win32\\chromedriver.exe");
 
-		WebDriver driver = new ChromeDriver();
+		//WebDriver driver = new ChromeDriver();
 
 		// driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 		//WebDriverWait w = new WebDriverWait(driver, 5);
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--remote-allow-origins=*");
+		options.addArguments("--disable notifications");
+		DesiredCapabilities cp = new DesiredCapabilities();
+		cp.setCapability(ChromeOptions.CAPABILITY, options);
+		options.merge(cp);
+		ChromeDriver driver = new ChromeDriver(options);
+	
 
 		String[] itemsNeeded = { "Cucumber", "Brocolli", "Beetroot" };
 
